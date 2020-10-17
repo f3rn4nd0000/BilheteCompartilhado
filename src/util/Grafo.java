@@ -67,7 +67,9 @@ public class Grafo <V,A,P>{
         return 0;
     }
 
-    void setarPeso(Vertice origem, Vertice destino, double peso){}
+    void setarPeso(Vertice origem, Vertice destino, double peso){  
+            
+    }
 
     ArrayList<V> vertices(){
         return null;
@@ -118,7 +120,6 @@ public class Grafo <V,A,P>{
             return hash;
         }
 
-        
     }
     
     private class Aresta {
