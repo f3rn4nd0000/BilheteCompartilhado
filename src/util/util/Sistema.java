@@ -1,3 +1,4 @@
+package util;
 import java.util.*;
 /**
  * Esta classe será a responsável por gerenciar a execução de todas as classes juntas

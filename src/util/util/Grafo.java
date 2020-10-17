@@ -1,4 +1,3 @@
-
 package util;
 
 import java.util.ArrayList;
@@ -12,15 +11,15 @@ public class Grafo <V,A,P>{
     ArrayList<Aresta> arestas;
 
     public Grafo() {
-        vertices = new ArrayList();
-        arestas = new ArrayList();
+        vertices = new ArrayList(); //contem todos os vertices do grafo!
+        arestas = new ArrayList();	//contem todas as arestas do grafo!
     }
     
     //Metodo para adicionar arrestas na lista de arestas
     void adicionarAresta(V origem, V destino, P peso) throws NotVerticeException{
         int indexOrigem = vertices.indexOf(origem);
         int indexDestino = vertices.indexOf(destino);
-        
+ 
         if(indexOrigem < 0 || indexDestino < 0)
             throw new NotVerticeException();
         
@@ -47,12 +46,40 @@ public class Grafo <V,A,P>{
         return ret.isEmpty() ? null : ret;
     }
 
+    /**
+     * Algoritmo para buscar todos os caminhos possíveis no grafo a partir de um ponto "origem" passado como parâmetro!
+     * https://en.wikipedia.org/wiki/Depth-first_search
+     * @param G
+     * @param origem
+     * @return
+     * @throws NotVerticeException 
+     */
+    public ArrayList<A> buscaEmProfundidade(Grafo G, Vertice origem) throws NotVerticeException {
+
+    	origem.setEncontrado();
+    	
+    	for(Vertice w : vertices) {
+    		if(G.adjacentesDe(origem).equals(w)) {
+    			
+    		}
+    	}
+    	
+    	return null;
+    }
+    
     ArrayList<A> arestasEntre(V origem, V destino){
         
         return null;
     }
 
-    //Metodo que verifica se extiste uma aresta entre os vertices
+    //Metodo que verifica se existe uma aresta entre os vertices
+    /**
+     * 
+     * @param origem Vértice de origem!
+     * @param destino Vértice de destino!
+     * @return
+     * @throws NotVerticeException
+     */
     boolean existeAresta(V origem, V destino) throws NotVerticeException{ 
         int indexOrigem = vertices.indexOf(origem);
         int indexDestino = vertices.indexOf(destino);
@@ -61,13 +88,20 @@ public class Grafo <V,A,P>{
             throw new NotVerticeException();
         
         for(Aresta a : arestas){
-            if( a.origem.equals(origem)&& a.destino.equals(destino) ){
+        
+            if( a.getOrigem().equals(origem)&& a.getDestino().equals(destino) ){ //se a aresta possui mesmo destino e origem que 
                 return true;
             }
         }
         return false;
     }
-
+    
+    /**
+     * Calcula o grau do vértice!
+     * @param vertice
+     * @return	quantidade de vértices adjacentes ao vértice passado como parâmetro
+     * @throws NotVerticeException
+     */
     int grauDoVertice(V vertice) throws NotVerticeException{
  
         if(!vertices.contains(vertice))
@@ -113,12 +147,24 @@ public class Grafo <V,A,P>{
         
         private int id;
         private V vertice;
+        private boolean foiEncontrado;
+        private ArrayList<Aresta> arestasV; //contem todas as arestas do grafo ligadas a esse vertice.
         
-        public Vertice(int id, V vertice){
+        
+		public Vertice(int id, V vertice){
             this.id = id;
             this.vertice = vertice;
+            this.foiEncontrado = false;
         }
-
+        
+        //lista todos os vertices que são vizinhos.
+        public ArrayList getVizinhos() {
+        	ArrayList<Vertice> arestasV = new ArrayList<Vertice>(); //nessa lista serão inseridos os vertices vizinhos
+        	for(int index = 0 ; index < arestas.size() ; index++)
+        	if(arestas.get(index).getDestino().equals(this)) //se em alguma das arestas da classe grafo for encontrado esse vertice entao pega o outro vertice ligado a essa aresta e adiciona!
+        		arestasV.get(index).setVertice(vertices.get(index)); 
+        }
+        
         public int getId() {
             return id;
         }
@@ -134,7 +180,23 @@ public class Grafo <V,A,P>{
         public void setVertice(V vertice) {
             this.vertice = vertice;
         }
-
+        
+        public ArrayList<Aresta> getArestas() {
+        	return arestas;
+        }
+        
+        public void setArestas(ArrayList<Aresta> arestas) {
+        	this.arestas = arestas;
+        }
+        
+        public void setEncontrado() {
+        	this.foiEncontrado = true;
+        }
+        
+        //retorna true se o algoritmo de verificação já passou por esse vértice!
+        public boolean getEncontrado() {
+        	return foiEncontrado;
+        }
    
         @Override
         public boolean equals(Object obj) {
@@ -153,7 +215,11 @@ public class Grafo <V,A,P>{
             hash = 89 * hash + Objects.hashCode(this.vertice);
             return hash;
         }
-
+        
+     /*   public boolean verticeEncontrado() {
+        	this.setEncontrado();
+        	return w.getEncontrado();
+        }*/
     }
     
     private class Aresta {
@@ -167,7 +233,7 @@ public class Grafo <V,A,P>{
             this.destino = destino;
             this.peso = peso;
         }
-
+        
         public Vertice getOrigem() {
             return origem;
         }
@@ -194,6 +260,4 @@ public class Grafo <V,A,P>{
         
        
     }
-    
-    
 }

@@ -1,3 +1,9 @@
+package util;
+/**
+ * Pode ser substituída pela classe aresta
+ * @author ffern
+ *
+ */
 public class Rota {
     
     String origem;
@@ -23,4 +29,6 @@ public class Rota {
     public String getDestino(String destino) {
         return this.destino;
     }
+    
+    
 }
