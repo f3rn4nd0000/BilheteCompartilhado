@@ -54,17 +54,17 @@ public class Grafo <V,A,P>{
      * @return
      * @throws NotVerticeException 
      */
-    public ArrayList<A> buscaEmProfundidade(Grafo G, Vertice origem) throws NotVerticeException {
-
+    
+    public void buscaEmProfundidade(Grafo G, Vertice origem) throws NotVerticeException {
+    	
     	origem.setEncontrado();
     	
     	for(Vertice w : vertices) {
     		if(G.adjacentesDe(origem).equals(w)) {
-    			
+    			if(!w.getEncontrado())
+    				buscaEmProfundidade(G,w);
     		}
     	}
-    	
-    	return null;
     }
     
     ArrayList<A> arestasEntre(V origem, V destino){
@@ -182,11 +182,11 @@ public class Grafo <V,A,P>{
         }
         
         public ArrayList<Aresta> getArestas() {
-        	return arestas;
+        	return arestasV;
         }
         
         public void setArestas(ArrayList<Aresta> arestas) {
-        	this.arestas = arestas;
+        	this.arestasV = arestas;
         }
         
         public void setEncontrado() {
