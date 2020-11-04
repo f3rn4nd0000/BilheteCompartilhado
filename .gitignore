@@ -1,4 +1,10 @@
 /nbproject
 build.xml
 manifest.mf
+<<<<<<< HEAD
 /bin/
+=======
+/build/
+/bin/
+/dist/
+>>>>>>> ebffaf5d601ececc83ddd6c5871494ba41fca061
